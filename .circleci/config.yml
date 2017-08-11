@@ -102,6 +102,7 @@ jobs:
           command: |
             mkdir -p $HOME/.kube
             mv ~/dev-utils/config/k8s/kube.config $HOME/.kube/config
+            make build-bin
             TIMESTAMP=tmp-$(date +%s)
             docker image build -t $DOCKER_PROJECT_NAME:$TIMESTAMP .
             kubectl set image -n $CIRCLE_BRANCH -f ~/devops/k8s/deploy/$CIRCLE_BRANCH/phone-deployment.yaml phone-channel=$DOCKER_PROJECT_NAME:$TIMESTAMP
