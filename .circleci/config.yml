@@ -16,6 +16,10 @@ jobs:
       PYTHON_PACKAGE_LOCATION: ~/
       KUBECONFIG: ~/dev-utils/config/k8s/kube.config
     working_directory: ~/phone-channel
+    branches:
+      only:
+        - master
+        - featuretest
     steps:
       - checkout
       - setup_remote_docker
