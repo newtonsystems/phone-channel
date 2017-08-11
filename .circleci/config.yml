@@ -77,7 +77,7 @@ jobs:
 
   deploy_kubernetes_branch:
     docker:
-      - image: newtonsystems/tools-docker-grpc-tools:0.2.2
+      - image: newtonsystems/tools-docker-grpc-tools:0.2.3
     environment:
       DOCKER_PROJECT_NAME: phone-channel
     working_directory: ~/phone-channel
@@ -104,6 +104,7 @@ jobs:
       - run: 
           name: Update kubernetes image - phone-channel deployment
           command: |
+            curl https://glide.sh/get | sh
             mkdir -p $HOME/.kube
             mv ~/dev-utils/config/k8s/kube.config $HOME/.kube/config
             make build-bin

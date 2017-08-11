@@ -109,7 +109,7 @@ install-deps-master:
 .PHONY: build-bin
 
 # TODO: Should speed this up with voluming vendor/
-build-bin:        ##@build Cross compile the go binary executable
+build-bin:              ##@build Cross compile the go binary executable
 	@echo "$(INFO) Building a linux-alpine Go binary locally with a docker container $(BLUE)$(REPO):compile$(RESET)"
 	docker build -t $(REPO):compile -f Dockerfile.build .
 	docker run --rm -v "${PWD}":$(REPO_DIR) $(REPO):compile
