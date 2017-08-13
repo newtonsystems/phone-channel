@@ -107,8 +107,8 @@ jobs:
             make compile
             TIMESTAMP=tmp-$(date +%s)
             docker image build -t $DOCKER_PROJECT_NAME:$TIMESTAMP .
-            kubectl set image -n $CIRCLE_BRANCH -f ~/devops/k8s/deploy/$CIRCLE_BRANCH/phone-deployment.yaml phone-channel=$DOCKER_PROJECT_NAME:$TIMESTAMP
-            kubectl rollout status ~/devops/k8s/deploy/$CIRCLE_BRANCH/phone-deployment.yaml --
+            kubectl set image -n $CIRCLE_BRANCH -f ~/devops/k8s/deploy/$CIRCLE_BRANCH/phone-deployment.yml phone-channel=$DOCKER_PROJECT_NAME:$TIMESTAMP
+            kubectl rollout status ~/devops/k8s/deploy/$CIRCLE_BRANCH/phone-deployment.yml --
 
 workflows:
   version: 2
