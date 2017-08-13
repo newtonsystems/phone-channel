@@ -86,6 +86,11 @@ func main() {
 	cmd := exec.Command("cat", "/etc/hostname")
 	stdout, err := cmd.Output()
 
+	if err != nil {
+		println(err.Error())
+		return
+	}
+
 	logger.Log("msg", "starting ...", "level", "info", "container", stdout)
 	defer logger.Log("msg", "goodbye")
 
