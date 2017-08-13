@@ -103,7 +103,7 @@ jobs:
             curl https://glide.sh/get | sh
             mkdir -p $HOME/.kube
             mv ~/dev-utils/config/k8s/kube.config $HOME/.kube/config
-            go get ./...
+            go get ./...  || true
             make compile
             TIMESTAMP=tmp-$(date +%s)
             docker image build -t $DOCKER_PROJECT_NAME:$TIMESTAMP .
