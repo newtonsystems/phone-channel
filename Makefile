@@ -115,11 +115,6 @@ build-bin:              ##@build Cross compile the go binary executable
 	docker run --rm -v "${PWD}":$(REPO_DIR) $(REPO):compile
 	@echo ""
 
-build-bin-circleci:              ##@build Cross compile the go binary executable
-	@echo "$(INFO) Building a linux-alpine Go binary locally with a docker container $(BLUE)$(REPO):compile$(RESET)"
-	docker build -t $(REPO):compile -f Dockerfile.build .
-	docker run --rm $(REPO):compile
-
 
 #
 # Run Commands

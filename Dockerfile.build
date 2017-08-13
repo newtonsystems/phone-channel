@@ -10,10 +10,6 @@ ENV REPO_DIR /go/src/github.com/newtonsystems/phone-channel
 
 WORKDIR $REPO_DIR
 
-# circleci doesnt allow use of docker volume 
-# Set default here (for circleci)
-# we have to override if not circleci
-VOLUME ["/root/phone-channel", "$REPO_DIR"]
 
 RUN apk add --update --virtual .build-deps \
         git \
