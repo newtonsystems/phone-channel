@@ -103,8 +103,10 @@ jobs:
             curl https://glide.sh/get | sh
             mkdir -p $HOME/.kube
             mv ~/dev-utils/config/k8s/kube.config $HOME/.kube/config
+            docker image pull newtonsystems/phone-channel:$CIRCLE_BRANCH
+            TIMESTAMP=tmp-$(date +%s)
+            docker image tag newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH newtonsystems/$DOCKER_PROJECT_NAME:$CIRCLE_BRANCH-$TIMESTAMP
             kubectl set image deployment/phone-channel phone-channel=newtonsystems/phone-channel:featuretest --namespace $CIRCLE_BRANCH
-            kubectl replace -f /root/devops/k8s/deploy/featuretest/phone-deployment.yml --namespace $CIRCLE_BRANCH
             kubectl rollout status deployments/phone-channel --namespace $CIRCLE_BRANCH
 
 workflows:
