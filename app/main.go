@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"os/exec"
 	"os/signal"
 	"syscall"
 	"time"
@@ -81,7 +82,11 @@ func main() {
 		logger = log.With(logger, "caller", log.DefaultCaller)
 		logger = log.With(logger, "service", "phone-channel")
 	}
-	logger.Log("msg", "starting ...", "level", "info")
+
+	cmd := exec.Command("cat", "/etc/hostname")
+	stdout, err := cmd.Output()
+
+	logger.Log("msg", "starting ...", "level", "info", "container", stdout)
 	defer logger.Log("msg", "goodbye")
 
 	var (

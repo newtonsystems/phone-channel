@@ -53,7 +53,7 @@ jobs:
       - run:
           name: Compile Executable & Build & Push to Docker Hub (branch and latest (sync'd to master)) 
           command: |
-            # Cannot use volumes so we cant use 'make build-exec'
+            # Cannot use volumes so we cant use 'make build-build'
             docker build -t $DOCKER_PROJECT_NAME:compile -f Dockerfile.build .
             docker run --name compiler $DOCKER_PROJECT_NAME:compile
             docker cp compiler:/go/src/github.com/newtonsystems/phone-channel/main $PWD
@@ -103,12 +103,8 @@ jobs:
             curl https://glide.sh/get | sh
             mkdir -p $HOME/.kube
             mv ~/dev-utils/config/k8s/kube.config $HOME/.kube/config
-            go get ./...  || true
-            make compile
-            TIMESTAMP=tmp-$(date +%s)
-            docker image build -t $DOCKER_PROJECT_NAME:$TIMESTAMP .
-            kubectl set image -n $CIRCLE_BRANCH -f ~/devops/k8s/deploy/$CIRCLE_BRANCH/phone-deployment.yml phone-channel=$DOCKER_PROJECT_NAME:$TIMESTAMP
-            kubectl rollout status ~/devops/k8s/deploy/$CIRCLE_BRANCH/phone-deployment.yml --
+            kubectl set image deployment/phone-channel phone-channel=newtonsystems/phone-channel:featuretest --namespace $CIRCLE_BRANCH
+            kubectl rollout status deployments/phone-channel --namespace $CIRCLE_BRANCH
 
 workflows:
   version: 2
