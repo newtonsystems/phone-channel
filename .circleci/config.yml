@@ -109,7 +109,7 @@ jobs:
 
 workflows:
   version: 2
-  dev_stage_featuretest:
+  dev_stage_envs:
     jobs:
       - build
       - deploy_kubernetes_branch:
